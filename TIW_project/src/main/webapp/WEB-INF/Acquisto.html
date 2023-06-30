@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Acquisto</title>
+    <style>
+    /* Style the form elements */
+    
+    body{
+    background-color:#00A6A6;
+    
+  }
+    button[type="submit"] {
+      width: 25%;
+      background-color: #4CAF50;
+      border: 1px solid #ccc;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    button[id="Home"] {
+      width: 15%;
+      background-color: #4CAF50;
+      border: 1px solid #ccc;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+  
+h2[id="Welcome"]{
+	color:RED;
+}
+
+.top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 4px;
+  }
+  
+  form[id="Logout"]{
+position: absolute;
+    top: 0;
+    right: 0;
+    padding: 12px 20px;
+    margin: 8px 0;
+    
+    
+    border-radius: 4px;
+}
+  
+   
+  </style>
+</head>
+
+<body>
+
+
+<h2 id="Welcome">WELCOME TO YOUR PAGE ACQUISTO</h2>
+
+<div class="top-right"><form method="get" action="goToHomePage">
+	<button type="submit" id="Home">Torna alla homepage</button>
+</form></div>
+
+
+<!-- Form di ricerca con parola chiave -->
+<h3 id="Ricerca">Ricerca delle aste tramite parola chiave</h3>
+<form method="post" action="goToPageAcquisto">
+	<label for="keyword">Parola chiave:</label>
+  	<input type="text" id="keyword" name="keyword" required><br>
+  <button type="submit" name="showDiv" value="true">Ricerca asta</button>
+  
+</form>
+
+<!-- Print dinamico delle aste disponibili -->
+<!-- Il click sulle aste disponibili trovate tramite ricerca
+di parola chiave apre la pagina offerta settata dinamicamente -->
+<div th:if="${param.showDiv != null}">
+<ul th:if="${listaAste != null}">
+  <li th:each="item : ${listaAste}">
+    <a th:href="@{/goToPageOfferta(id=${item.idAsta})}" th:value="${item.idAsta}" th:text="${item.idAsta}"></a>
+  </li>
+</ul>
+<div th:if="${listaAste == null}"><p>Nessuna asta disponibile</p>
+</div>
+</div>
+
+
+
+<div th:if="${not #lists.isEmpty(Asta)}">
+	<h3>Offerte aggiudicate</h3>
+ <table border=1>
+    <thead>
+        <tr>
+            <th>Asta</th>
+            <th>Prezzo finale</th>
+            <th>Utente Creatore</th>
+            <th>Articoli</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="asta, astaIndex : ${Asta}">
+            <!-- Mostra le informazioni sull'asta -->
+            <td th:text="${asta.idAsta}"></td>
+            <td th:text="${asta.currentPrice}"></td>
+            <!-- Mostra il nome del creatore dell'asta -->
+            <td th:text="${ListaCreatori[astaIndex.index]}"></td>
+            <td>
+                <table border=1>
+                   
+                    	<thead>
+        					<tr>
+            					<th>Nome articolo</th>
+           						<th>Descrizione articolo</th>
+            					<th>Prezzo articolo</th>
+            					<th>Immagine</th>
+        					</tr>
+    					</thead> 
+    					<tbody>
+                        <!-- Cicla sulla lista di articoli -->
+                        <tr th:each="articolo : ${ListaArticoli[astaIndex.index]}">
+                            <!-- Mostra le informazioni sull'articolo -->
+                            <td th:text="${articolo.name}"></td>
+                            <td th:text="${articolo.description}"></td>
+                            <td th:text="${articolo.price}"></td>
+                            <td><img th:src="'data:image/jpeg/jpg/png;base64,' + ${articolo.imageLink}" alt="Image" width= 250  height=250 ></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+    
+</div>
+<div th:unless="${not #lists.isEmpty(Asta)}">
+<p>Ancora nessuna offerta vinta</p>
+</div>
+
+<form action="Logout" id="Logout"><button type="submit">Logout</button></form>
+
+
+</body>
+</html>

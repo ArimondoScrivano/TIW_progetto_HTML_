@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Error page</title>
+    <style>
+    /* Style the form elements */
+    
+    body{
+    background-color:#00A6A6;
+    
+  }
+    button[type="submit"] {
+      width: 25%;
+      background-color: #4CAF50;
+      border: 1px solid #ccc;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    button[id="Home"] {
+      width: 15%;
+      background-color: #4CAF50;
+      border: 1px solid #ccc;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+  
+h2[id="Welcome"]{
+	color:RED;
+}
+
+.top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 4px;
+  }
+
+
+h3[id="errorMsg"]{
+	color:RED;
+}
+  
+   
+  </style>
+</head>
+<body>
+
+<div class="top-right">
+<form method="get" action="goToHomePage" style="display: inline-block;">
+<button type="submit" id="Home">Torna alla homepage</button>
+</form>
+<br>
+<form action="Logout" id="Logout" style="display: inline-block;">
+<button type="submit">Logout</button>
+</form>
+
+</div>
+
+
+
+<h3 th:text="${errorMsg}" id="errorMsg"></h3><br>
+
+</body>
+</html>

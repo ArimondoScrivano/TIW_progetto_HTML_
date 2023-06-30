@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+  <title>Homepage</title>
+    <style>
+    /* Style the form elements */
+    
+    body{
+    background-color:#00A6A6;
+    
+  }
+    button[type="submit"] {
+      width: 100%;
+      background-color: #4CAF50;
+      border: 1px solid #ccc;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+  
+h2[id="Welcome"]{
+	color:RED;
+}
+
+form[id="Logout"]{
+position: absolute;
+    top: 0;
+    right: 0;
+    padding: 12px 20px;
+    margin: 8px 0;
+    
+    
+    border-radius: 4px;
+}
+
+   
+  </style>
+</head>
+<body>
+  <h2 id="Welcome">Welcome back!</h2><br>
+  <p th:text="${'Nice to see you again ' + session.user.name + ' ' + session.user.surname}"></p>
+  <form action="goToPageAcquisto"><button type="submit" > Acquisto </button><br>
+  </form>
+  <form action="goToPageVendo"><button type="submit" > Vendo </button><br>
+  </form>
+
+<form action="Logout" id="Logout"><button type="submit">Logout</button></form>
+  
+</body>
+</html>
